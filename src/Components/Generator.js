@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { generatePass } from "../lib/utils";
+import { useMediaQuery } from "@mantine/hooks";
 
 import { IoIosRefresh } from "react-icons/io";
 import {
@@ -16,9 +17,12 @@ import {
   Slider,
   Checkbox,
   Group,
+  em,
 } from "@mantine/core";
 
 function Generator({ passIcon, title, desc }) {
+  const isMobile = useMediaQuery(`(max-width: ${em(750)})`);
+
   const [preset, setPreset] = useState({
     length: 8,
     upperCases: false,
@@ -86,7 +90,7 @@ function Generator({ passIcon, title, desc }) {
 
       <Center>
         <Grid mt={30}>
-          <Grid.Col span={8}>
+          <Grid.Col span={isMobile ? 12 : 8}>
             <TextInput
               rightSection={
                 <ActionIcon
@@ -105,10 +109,11 @@ function Generator({ passIcon, title, desc }) {
             />
           </Grid.Col>
 
-          <Grid.Col span={4}>
+          <Grid.Col span={isMobile ? 12 : 4}>
             <Button
               onClick={handleCopyButton}
               size="xl"
+              fullWidth={true}
               variant="outline"
               color="rgba(255, 255, 255, 1)"
             >
